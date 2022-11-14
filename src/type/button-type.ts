@@ -6,3 +6,5 @@ export type States =
   | "LOADING"
   | "DISABLED"
   | "SKELETON";
+
+export type Size = "XSMALL" | "SMALL" | "MEDIUM" | "LARGE" | "XLARGE";
