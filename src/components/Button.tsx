@@ -10,6 +10,7 @@ import { States, Size } from "type/button-type";
 
 interface Props {
   states?: States;
+  setStates: React.Dispatch<React.SetStateAction<States>>;
   size?: Size;
   label?: string;
 }
@@ -19,12 +20,31 @@ interface StyledProps {
   size?: Size;
 }
 
-function Button({ states, size, label }: Props) {
+function Button({ states, setStates, size, label }: Props) {
   useEffect(() => {
     console.log(states);
   }, [states]);
   return (
-    <Container states={states} size={size}>
+    <Container
+      states={states}
+      size={size}
+      onMouseEnter={() => {
+        console.log("MouseEnter");
+        setStates("HOVERED");
+      }}
+      onMouseLeave={() => {
+        console.log("MouseLeave");
+        setStates("DEFAULT");
+      }}
+      onMouseDown={() => {
+        console.log("MouseDown");
+        setStates("PRESSED");
+      }}
+      onMouseUp={() => {
+        console.log("MouseUp");
+        setStates("HOVERED");
+      }}
+    >
       {label}
     </Container>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 // Style
@@ -7,11 +7,15 @@ import { Heading } from "styles/typography";
 // Components
 import Button from "components/Button";
 
+// Type
+import { States } from "type/button-type";
+
 function Test() {
+  const [btnStates, setBtnStates] = useState<States>("DEFAULT");
   return (
     <Container>
       <h3>Test</h3>
-      <Button states="FOCUSED" size="LARGE" />
+      <Button states={btnStates} setStates={setBtnStates} size="LARGE" />
     </Container>
   );
 }
