@@ -65,6 +65,44 @@ const Container = styled.button<StyledProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 300ms ease-in-out;
+  transition-property: background;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 114.41441%;
+    height: 133.33333%;
+    background: ${ColorSystem.Primary[700]};
+    border-radius: 20px;
+    filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+    transition-property: opacity;
+    z-index: -1;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 107.2072%;
+    height: 116.6666%;
+    border: 2px solid rgba(33, 115, 223, 0.7);
+    border-radius: 16px;
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    transition: 200ms ease-in-out;
+    transition-property: opacity;
+    z-index: -1;
+  }
 
   ${(props) =>
     props.size === "XSMALL" &&
@@ -127,16 +165,6 @@ const Container = styled.button<StyledProps>`
       color: ${ColorSystem.Neutral[0]};
 
       &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate3d(-50%, -50%, 0);
-        width: 114.41441%;
-        height: 133.33333%;
-        background: ${ColorSystem.Primary[700]};
-        border-radius: 20px;
-        filter: blur(10px);
         opacity: 0.15;
       }
     `};
@@ -147,17 +175,8 @@ const Container = styled.button<StyledProps>`
       background: ${ColorSystem.Primary[600]};
       color: ${ColorSystem.Neutral[0]};
 
-      &::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate3d(-50%, -50%, 0);
-        width: 107.2072%;
-        height: 116.6666%;
-        border: 2px solid rgba(33, 115, 223, 0.7);
-        border-radius: 16px;
-        box-sizing: border-box;
+      &::before {
+        opacity: 1;
       }
     `};
 
