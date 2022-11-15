@@ -12,15 +12,17 @@ interface Props {
   states?: States;
   setStates: React.Dispatch<React.SetStateAction<States>>;
   size?: Size;
+  fixedWidth?: boolean;
   label?: string;
 }
 
 interface StyledProps {
   states?: States;
   size?: Size;
+  fixedWidth?: boolean;
 }
 
-function Button({ states, setStates, size, label }: Props) {
+function Button({ states, setStates, size, fixedWidth, label }: Props) {
   useEffect(() => {
     console.log(states);
   }, [states]);
@@ -28,6 +30,7 @@ function Button({ states, setStates, size, label }: Props) {
     <Container
       states={states}
       size={size}
+      fixedWidth={fixedWidth}
       onMouseEnter={() => {
         console.log("MouseEnter");
         setStates("HOVERED");
@@ -55,6 +58,7 @@ export default Button;
 Button.defaultProps = {
   states: "DEFAULT",
   size: "MEDIUM",
+  fixedWidth: false,
   label: "Button",
 };
 
@@ -107,7 +111,7 @@ const Container = styled.button<StyledProps>`
   ${(props) =>
     props.size === "XSMALL" &&
     css`
-      width: 80px;
+      width: ${props.fixedWidth ? "100%" : "80px"};
       height: 32px;
       ${Text.Medium300};
     `};
@@ -115,7 +119,7 @@ const Container = styled.button<StyledProps>`
   ${(props) =>
     props.size === "SMALL" &&
     css`
-      width: 88px;
+      width: ${props.fixedWidth ? "100%" : "88px"};
       height: 40px;
       ${Text.Medium300};
     `};
@@ -123,7 +127,7 @@ const Container = styled.button<StyledProps>`
   ${(props) =>
     props.size === "MEDIUM" &&
     css`
-      width: 111px;
+      width: ${props.fixedWidth ? "100%" : "111px"};
       height: 48px;
       ${Text.Medium400};
     `};
@@ -131,7 +135,7 @@ const Container = styled.button<StyledProps>`
   ${(props) =>
     props.size === "LARGE" &&
     css`
-      width: 133px;
+      width: ${props.fixedWidth ? "100%" : "133px"};
       height: 60px;
       ${Text.Medium500};
     `};
@@ -139,7 +143,7 @@ const Container = styled.button<StyledProps>`
   ${(props) =>
     props.size === "XLARGE" &&
     css`
-      width: 135px;
+      width: ${props.fixedWidth ? "100%" : "135px"};
       height: 68px;
       ${Text.Bold500};
     `};
