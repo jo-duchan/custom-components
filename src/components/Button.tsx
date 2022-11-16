@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 
 // Style
@@ -23,8 +23,15 @@ interface StyledProps {
 }
 
 function Button({ states, size, fixedWidth, label, onClick }: Props) {
+  const Btn = useRef<HTMLButtonElement | null>(null);
+
   useEffect(() => {
     console.log(states);
+    if (!Btn) return;
+
+    if (states === "FOCUSED") {
+      Btn.current?.focus();
+    }
   }, [states]);
 
   return (
@@ -34,6 +41,7 @@ function Button({ states, size, fixedWidth, label, onClick }: Props) {
       fixedWidth={fixedWidth}
       disabled={states === "DISABLED"}
       onClick={onClick}
+      ref={Btn}
     >
       {label}
     </Container>
