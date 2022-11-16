@@ -10,10 +10,10 @@ import { States, Size } from "type/button-type";
 
 interface Props {
   states?: States;
-  setStates: React.Dispatch<React.SetStateAction<States>>;
   size?: Size;
   fixedWidth?: boolean;
   label?: string;
+  onClick: () => void;
 }
 
 interface StyledProps {
@@ -22,31 +22,18 @@ interface StyledProps {
   fixedWidth?: boolean;
 }
 
-function Button({ states, setStates, size, fixedWidth, label }: Props) {
+function Button({ states, size, fixedWidth, label, onClick }: Props) {
   useEffect(() => {
     console.log(states);
   }, [states]);
+
   return (
     <Container
       states={states}
       size={size}
       fixedWidth={fixedWidth}
-      onMouseEnter={() => {
-        console.log("MouseEnter");
-        setStates("HOVERED");
-      }}
-      onMouseLeave={() => {
-        console.log("MouseLeave");
-        setStates("DEFAULT");
-      }}
-      onMouseDown={() => {
-        console.log("MouseDown");
-        setStates("PRESSED");
-      }}
-      onMouseUp={() => {
-        console.log("MouseUp");
-        setStates("HOVERED");
-      }}
+      disabled={states === "DISABLED"}
+      onClick={onClick}
     >
       {label}
     </Container>
@@ -68,6 +55,8 @@ const Container = styled.button<StyledProps>`
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  background: ${ColorSystem.Primary[600]};
+  color: ${ColorSystem.Neutral[0]};
   justify-content: center;
   transition: 300ms ease-in-out;
   transition-property: background;
@@ -148,53 +137,20 @@ const Container = styled.button<StyledProps>`
       ${Text.Bold500};
     `};
 
-  ${(props) =>
-    props.states === "DEFAULT" &&
-    css`
-      background: ${ColorSystem.Primary[600]};
-      color: ${ColorSystem.Neutral[0]};
-    `};
+  &:hover {
+    background: ${ColorSystem.Primary[700]};
+  }
 
-  ${(props) =>
-    props.states === "HOVERED" &&
-    css`
-      background: ${ColorSystem.Primary[700]};
-      color: ${ColorSystem.Neutral[0]};
-    `};
+  &:enabled:active::after {
+    opacity: 0.15;
+  }
 
-  ${(props) =>
-    props.states === "PRESSED" &&
-    css`
-      background: ${ColorSystem.Primary[700]};
-      color: ${ColorSystem.Neutral[0]};
+  &:focus::before {
+    opacity: 1;
+  }
 
-      &::after {
-        opacity: 0.15;
-      }
-    `};
-
-  ${(props) =>
-    props.states === "FOCUSED" &&
-    css`
-      background: ${ColorSystem.Primary[600]};
-      color: ${ColorSystem.Neutral[0]};
-
-      &::before {
-        opacity: 1;
-      }
-    `};
-
-  ${(props) =>
-    props.states === "LOADING" &&
-    css`
-      background: ${ColorSystem.Primary[600]};
-      color: ${ColorSystem.Neutral[0]};
-    `};
-
-  ${(props) =>
-    props.states === "DISABLED" &&
-    css`
-      background: ${ColorSystem.Neutral[100]};
-      color: ${ColorSystem.Neutral[600]};
-    `};
+  &:disabled {
+    background: ${ColorSystem.Neutral[100]};
+    color: ${ColorSystem.Neutral[600]};
+  }
 `;

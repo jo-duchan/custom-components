@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 // Style
-import { Heading } from "styles/typography";
+import ColorSystem from "styles/color-system";
+import { Heading, Text } from "styles/typography";
 
 // Components
 import Button from "components/Button";
@@ -12,10 +13,14 @@ import { States } from "type/button-type";
 
 function Test() {
   const [btnStates, setBtnStates] = useState<States>("DEFAULT");
+  const handleClick = () => {
+    alert("You clicked the button!");
+  };
   return (
     <Container>
       <h3>Test</h3>
-      <Button states={btnStates} setStates={setBtnStates} size="LARGE" />
+
+      <Button states={btnStates} size="LARGE" onClick={handleClick} />
     </Container>
   );
 }
