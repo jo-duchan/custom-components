@@ -10,28 +10,55 @@ import Button from "components/Button";
 
 // Type
 import { States } from "type/button-type";
+type OptionList = {
+  id: number;
+  label: string;
+  state: States;
+  fixed: boolean;
+  type: "STATES" | "FIXEDWIDTH";
+}[];
 
-const optionList: { id: number; val: States }[] = [
+const optionList: OptionList = [
   {
     id: 0,
-    val: "DEFAULT",
+    label: "Default",
+    state: "DEFAULT",
+    fixed: false,
+    type: "STATES",
   },
   {
     id: 1,
-    val: "DISABLED",
+    label: "Disabled",
+    state: "DISABLED",
+    fixed: false,
+    type: "STATES",
   },
   {
     id: 2,
-    val: "FOCUSED",
+    label: "Focused",
+    state: "FOCUSED",
+    fixed: false,
+    type: "STATES",
   },
   {
     id: 3,
-    val: "LOADING",
+    label: "Loading",
+    state: "LOADING",
+    fixed: false,
+    type: "STATES",
+  },
+  {
+    id: 3,
+    label: "FixedWidth",
+    state: "DEFAULT",
+    fixed: true,
+    type: "FIXEDWIDTH",
   },
 ];
 
 function Test() {
   const [btnStates, setBtnStates] = useState<States>("DEFAULT");
+  const [fixedWidth, setFixedWidth] = useState<boolean>(false);
 
   const handleClick = () => {
     alert("You clicked the button!");
@@ -39,10 +66,12 @@ function Test() {
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    val: States
+    state: States,
+    fixed: boolean
   ) => {
     if (e.target.checked) {
-      setBtnStates(val);
+      setBtnStates(state);
+      setFixedWidth(fixed);
     }
   };
 
@@ -55,13 +84,20 @@ function Test() {
             <Option
               name="ButtonStates"
               type="radio"
-              onChange={(e) => handleChange(e, item.val)}
+              onChange={(e) => {
+                handleChange(e, item.state, item.fixed);
+              }}
             />
-            {item.val}
+            {item.label}
           </Label>
         ))}
       </List>
-      <Button states={btnStates} size="LARGE" onClick={handleClick} />
+      <Button
+        states={btnStates}
+        size="LARGE"
+        onClick={handleClick}
+        fixedWidth={fixedWidth}
+      />
     </Container>
   );
 }
