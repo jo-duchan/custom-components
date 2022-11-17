@@ -24,6 +24,10 @@ const optionList: { id: number; val: States }[] = [
     id: 2,
     val: "FOCUSED",
   },
+  {
+    id: 3,
+    val: "LOADING",
+  },
 ];
 
 function Test() {

@@ -43,7 +43,7 @@ function Button({ states, size, fixedWidth, label, onClick }: Props) {
       onClick={onClick}
       ref={Btn}
     >
-      {label}
+      {states === "LOADING" ? <>Loading</> : <> {label}</>}
     </Container>
   );
 }
