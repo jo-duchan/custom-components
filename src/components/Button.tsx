@@ -5,6 +5,9 @@ import styled, { css } from "styled-components";
 import ColorSystem from "styles/color-system";
 import { Text } from "styles/typography";
 
+// Components
+import IconSet from "./IconSet";
+
 // Type
 import { States, Size } from "type/button-type";
 
@@ -43,7 +46,7 @@ function Button({ states, size, fixedWidth, label, onClick }: Props) {
       onClick={onClick}
       ref={Btn}
     >
-      {states === "LOADING" ? <>Loading</> : <> {label}</>}
+      {states === "LOADING" ? <IconSet type="PROGRESS" /> : <> {label}</>}
     </Container>
   );
 }
