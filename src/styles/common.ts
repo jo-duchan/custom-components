@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
 import { reset } from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
@@ -14,4 +14,10 @@ button, input {
 };
 `;
 
-export { GlobalStyle };
+const LayoutCenter = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export { GlobalStyle, LayoutCenter };

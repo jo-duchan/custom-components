@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 // Style
+import { LayoutCenter } from "styles/common";
 import ColorSystem from "styles/color-system";
 import { Text } from "styles/typography";
 
@@ -46,7 +47,13 @@ function Button({ states, size, fixedWidth, label, onClick }: Props) {
       onClick={onClick}
       ref={Btn}
     >
-      {states === "LOADING" ? <IconSet type="PROGRESS" /> : <> {label}</>}
+      {states === "LOADING" ? (
+        <LoadingMotion>
+          <IconSet type="PROGRESS" />
+        </LoadingMotion>
+      ) : (
+        <> {label}</>
+      )}
     </Container>
   );
 }
@@ -164,4 +171,18 @@ const Container = styled.button<StyledProps>`
     background: ${ColorSystem.Neutral[100]};
     color: ${ColorSystem.Neutral[600]};
   }
+`;
+
+const AniMation = keyframes`
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+`;
+
+const LoadingMotion = styled.div`
+  ${LayoutCenter};
+  animation: ${AniMation} 1000ms ease-in-out infinite;
 `;
