@@ -1,3 +1,5 @@
+export type BtnType = "PRIMATY" | "SECONDARY";
+
 export type States =
   | "DEFAULT"
   | "HOVERED"

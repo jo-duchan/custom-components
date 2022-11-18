@@ -10,9 +10,10 @@ import { Text } from "styles/typography";
 import IconSet from "./IconSet";
 
 // Type
-import { States, Size } from "type/button-type";
+import { BtnType, States, Size } from "type/button-type";
 
 interface Props {
+  btnType?: BtnType;
   states?: States;
   size?: Size;
   fixedWidth?: boolean;
@@ -21,12 +22,13 @@ interface Props {
 }
 
 interface StyledProps {
+  btnType?: boolean;
   states?: States;
   size?: Size;
   fixedWidth?: boolean;
 }
 
-function Button({ states, size, fixedWidth, label, onClick }: Props) {
+function Button({ btnType, states, size, fixedWidth, label, onClick }: Props) {
   const Btn = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
@@ -40,6 +42,7 @@ function Button({ states, size, fixedWidth, label, onClick }: Props) {
 
   return (
     <Container
+      btnType={btnType === "PRIMATY"}
       states={states}
       size={size}
       fixedWidth={fixedWidth}
@@ -61,23 +64,30 @@ function Button({ states, size, fixedWidth, label, onClick }: Props) {
 export default Button;
 
 Button.defaultProps = {
+  btnType: "PRIMATY",
   states: "DEFAULT",
   size: "MEDIUM",
   fixedWidth: false,
   label: "Button",
 };
 
-const Container = styled.button<StyledProps>`
-  position: relative;
-  border-radius: 12px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
+const AniMation = keyframes`
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+`;
+
+const LoadingMotion = styled.div`
+  ${LayoutCenter};
+  animation: ${AniMation} 1000ms ease-in-out infinite;
+`;
+
+const Primary = css`
   background: ${ColorSystem.Primary[600]};
   color: ${ColorSystem.Neutral[0]};
-  justify-content: center;
-  transition: 300ms ease-in-out;
-  transition-property: background;
 
   &::after {
     content: "";
@@ -115,46 +125,6 @@ const Container = styled.button<StyledProps>`
     z-index: -1;
   }
 
-  ${(props) =>
-    props.size === "XSMALL" &&
-    css`
-      width: ${props.fixedWidth ? "100%" : "80px"};
-      height: 32px;
-      ${Text.Medium300};
-    `};
-
-  ${(props) =>
-    props.size === "SMALL" &&
-    css`
-      width: ${props.fixedWidth ? "100%" : "88px"};
-      height: 40px;
-      ${Text.Medium300};
-    `};
-
-  ${(props) =>
-    props.size === "MEDIUM" &&
-    css`
-      width: ${props.fixedWidth ? "100%" : "111px"};
-      height: 48px;
-      ${Text.Medium400};
-    `};
-
-  ${(props) =>
-    props.size === "LARGE" &&
-    css`
-      width: ${props.fixedWidth ? "100%" : "133px"};
-      height: 60px;
-      ${Text.Medium500};
-    `};
-
-  ${(props) =>
-    props.size === "XLARGE" &&
-    css`
-      width: ${props.fixedWidth ? "100%" : "135px"};
-      height: 68px;
-      ${Text.Bold500};
-    `};
-
   &:hover {
     background: ${ColorSystem.Primary[700]};
   }
@@ -173,16 +143,85 @@ const Container = styled.button<StyledProps>`
   }
 `;
 
-const AniMation = keyframes`
-0% {
-  transform: rotate(0deg);
-}
-100% {
-  transform: rotate(360deg);
-}
+const Secondary = css`
+  background: ${ColorSystem.Neutral[0]};
+  color: ${ColorSystem.Primary[600]};
+  border: 1px solid ${ColorSystem.Neutral[300]};
+
+  &:hover {
+    background: ${ColorSystem.Neutral[100]};
+  }
+
+  &:focus {
+    border: 2px solid rgba(33, 115, 223, 0.7);
+  }
+
+  &:disabled {
+    background: ${ColorSystem.Neutral[100]};
+    color: ${ColorSystem.Neutral[600]};
+    border: 1px solid ${ColorSystem.Neutral[100]};
+  }
+
+  ${LoadingMotion} {
+    svg path {
+      fill: ${ColorSystem.Primary[600]};
+    }
+  }
 `;
 
-const LoadingMotion = styled.div`
-  ${LayoutCenter};
-  animation: ${AniMation} 1000ms ease-in-out infinite;
+const Container = styled.button<StyledProps>`
+  position: relative;
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 300ms ease-in-out;
+  transition-property: background, border, color;
+
+  ${(props) =>
+    props.btnType
+      ? css`
+          ${Primary}
+        `
+      : css`
+          ${Secondary}
+        `}
+
+  ${(props) => {
+    switch (props.size) {
+      case "XSMALL":
+        return css`
+          width: ${props.fixedWidth ? "100%" : "80px"};
+          height: 32px;
+          ${Text.Medium300};
+        `;
+      case "SMALL":
+        return css`
+          width: ${props.fixedWidth ? "100%" : "88px"};
+          height: 40px;
+          ${Text.Medium300};
+        `;
+      case "MEDIUM":
+        return css`
+          width: ${props.fixedWidth ? "100%" : "111px"};
+          height: 48px;
+          ${Text.Medium400};
+        `;
+      case "LARGE":
+        return css`
+          width: ${props.fixedWidth ? "100%" : "133px"};
+          height: 60px;
+          ${Text.Medium500};
+        `;
+      case "XLARGE":
+        return css`
+          width: ${props.fixedWidth ? "100%" : "135px"};
+          height: 68px;
+          ${Text.Bold500};
+        `;
+      default:
+        return css``;
+    }
+  }};
 `;

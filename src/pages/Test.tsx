@@ -48,7 +48,7 @@ const optionList: OptionList = [
     type: "STATES",
   },
   {
-    id: 3,
+    id: 4,
     label: "FixedWidth",
     state: "DEFAULT",
     fixed: true,
@@ -93,6 +93,7 @@ function Test() {
         ))}
       </List>
       <Button
+        btnType="SECONDARY"
         states={btnStates}
         size="LARGE"
         onClick={handleClick}
