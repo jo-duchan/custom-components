@@ -60,7 +60,10 @@ function Test() {
   const [btnStates, setBtnStates] = useState<States>("DEFAULT");
   const [fixedWidth, setFixedWidth] = useState<boolean>(false);
 
-  const handleClick = () => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined
+  ) => {
+    e?.preventDefault();
     alert("You clicked the button!");
   };
 

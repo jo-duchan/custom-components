@@ -18,7 +18,7 @@ interface Props {
   size?: Size;
   fixedWidth?: boolean;
   label?: string;
-  onClick: () => void;
+  onClick: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 interface StyledProps {
