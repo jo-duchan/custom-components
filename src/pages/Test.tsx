@@ -7,6 +7,7 @@ import { Heading, Text } from "styles/typography";
 
 // Components
 import Button from "components/Button";
+import Input from "components/Input";
 
 // Type
 import { States } from "type/button-type";
@@ -81,27 +82,32 @@ function Test() {
   return (
     <Container>
       <h3>Test</h3>
-      <List>
-        {optionList.map((item) => (
-          <Label key={item.id}>
-            <Option
-              name="ButtonStates"
-              type="radio"
-              onChange={(e) => {
-                handleChange(e, item.state, item.fixed);
-              }}
-            />
-            {item.label}
-          </Label>
-        ))}
-      </List>
-      <Button
-        btnType="SECONDARY"
-        states={btnStates}
-        size="LARGE"
-        onClick={handleClick}
-        fixedWidth={fixedWidth}
-      />
+      <Section>
+        <List>
+          {optionList.map((item) => (
+            <Label key={item.id}>
+              <Option
+                name="ButtonStates"
+                type="radio"
+                onChange={(e) => {
+                  handleChange(e, item.state, item.fixed);
+                }}
+              />
+              {item.label}
+            </Label>
+          ))}
+        </List>
+        <Button
+          btnType="SECONDARY"
+          states={btnStates}
+          size="LARGE"
+          onClick={handleClick}
+          fixedWidth={fixedWidth}
+        />
+      </Section>
+      <Section>
+        <Input />
+      </Section>
     </Container>
   );
 }
@@ -120,6 +126,16 @@ const Container = styled.div`
   & h3 {
     ${Heading.DefaultH1};
   }
+`;
+
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 24px;
+  border: 2px solid ${ColorSystem.Primary[600]};
+  border-radius: 16px;
+  margin-bottom: 20px;
 `;
 
 const List = styled.div`
