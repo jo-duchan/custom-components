@@ -106,7 +106,7 @@ function Test() {
         />
       </Section>
       <Section>
-        <Input />
+        <Input label="Label" placeholder="Placeholder" />
       </Section>
     </Container>
   );

@@ -176,6 +176,8 @@ const Container = styled.button<StyledProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  user-select: none;
   transition: 300ms ease-in-out;
   transition-property: background, border, color;
 
