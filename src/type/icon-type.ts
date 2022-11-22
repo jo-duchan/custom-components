@@ -1,1 +1,1 @@
-export type IconType = "PROGRESS";
+export type IconType = "PROGRESS" | "ERROR";

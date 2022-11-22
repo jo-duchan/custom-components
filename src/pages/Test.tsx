@@ -106,7 +106,7 @@ function Test() {
         />
       </Section>
       <Section>
-        <Input label="Label" placeholder="Placeholder" />
+        <Input states="ERROR" label="Label" placeholder="Placeholder" />
       </Section>
     </Container>
   );

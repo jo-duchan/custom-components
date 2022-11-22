@@ -10,16 +10,7 @@ import { Text } from "styles/typography";
 import IconSet from "./IconSet";
 
 // Type
-import { BtnType, States, Size } from "type/button-type";
-
-interface Props {
-  btnType?: BtnType;
-  states?: States;
-  size?: Size;
-  fixedWidth?: boolean;
-  label?: string;
-  onClick: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}
+import { ButtonProps, States, Size } from "type/button-type";
 
 interface StyledProps {
   btnType?: boolean;
@@ -28,7 +19,14 @@ interface StyledProps {
   fixedWidth?: boolean;
 }
 
-function Button({ btnType, states, size, fixedWidth, label, onClick }: Props) {
+function Button({
+  btnType,
+  states,
+  size,
+  fixedWidth,
+  label,
+  onClick,
+}: ButtonProps) {
   const Btn = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
