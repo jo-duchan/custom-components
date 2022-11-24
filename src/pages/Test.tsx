@@ -8,6 +8,7 @@ import { Heading, Text } from "styles/typography";
 // Components
 import Button from "components/Button";
 import Input from "components/Input";
+import Checkbox from "components/Checkbox";
 
 // Type
 import { States } from "type/button-type";
@@ -107,6 +108,9 @@ function Test() {
       </Section>
       <Section>
         <Input states="ERROR" label="Label" placeholder="Placeholder" />
+      </Section>
+      <Section>
+        <Checkbox label="Text" />
       </Section>
     </Container>
   );
