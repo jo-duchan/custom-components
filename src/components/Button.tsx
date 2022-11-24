@@ -40,7 +40,7 @@ function Button({
 
   return (
     <Container
-      btnType={btnType === "PRIMATY"}
+      btnType={btnType === "PRIMARY"}
       states={states}
       size={size}
       fixedWidth={fixedWidth}
@@ -62,7 +62,7 @@ function Button({
 export default Button;
 
 Button.defaultProps = {
-  btnType: "PRIMATY",
+  btnType: "PRIMARY",
   states: "DEFAULT",
   size: "MEDIUM",
   fixedWidth: false,

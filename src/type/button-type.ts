@@ -1,4 +1,4 @@
-export type BtnType = "PRIMATY" | "SECONDARY";
+export type BtnType = "PRIMARY" | "SECONDARY";
 
 export type States =
   | "DEFAULT"
