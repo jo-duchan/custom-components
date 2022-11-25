@@ -50,6 +50,8 @@ const CheckboxElm = styled.input`
   box-sizing: border-box;
   cursor: pointer;
   user-select: none;
+  transition: 200ms ease-in-out;
+  transition-property: background, border-color, color;
 
   &::after {
     content: "";
@@ -63,6 +65,8 @@ const CheckboxElm = styled.input`
     background-repeat: no-repeat;
     background-position: 50%;
     opacity: 0;
+    transition: 200ms ease-in-out;
+    transition-property: opacity;
   }
 
   &::before {
@@ -76,6 +80,8 @@ const CheckboxElm = styled.input`
     border: 2px solid rgba(33, 115, 223, 0.7);
     border-radius: 8px;
     opacity: 0;
+    transition: 200ms ease-in-out;
+    transition-property: opacity;
   }
 
   &:checked {

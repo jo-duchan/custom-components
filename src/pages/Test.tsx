@@ -99,7 +99,7 @@ function Test() {
           ))}
         </List>
         <Button
-          btnType="SECONDARY"
+          btnType="PRIMARY"
           states={btnStates}
           size="LARGE"
           onClick={handleClick}
