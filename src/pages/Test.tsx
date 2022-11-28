@@ -9,6 +9,7 @@ import { Heading, Text } from "styles/typography";
 import Button from "components/Button";
 import Input from "components/Input";
 import Checkbox from "components/Checkbox";
+import Toggle from "components/Toggle";
 
 // Type
 import { States } from "type/button-type";
@@ -111,6 +112,9 @@ function Test() {
       </Section>
       <Section>
         <Checkbox label="Text" />
+      </Section>
+      <Section>
+        <Toggle />
       </Section>
     </Container>
   );
