@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 // Style
-import { LayoutCenter } from "styles/common";
 import ColorSystem from "styles/color-system";
 import { Text } from "styles/typography";
 

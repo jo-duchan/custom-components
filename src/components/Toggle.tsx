@@ -1,10 +1,37 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-function Toggle() {
-  return <Container> </Container>;
+// Type
+import { Sizes } from "type/toggle-type";
+interface Props {
+  size?: Sizes;
+}
+
+interface StyledProps {
+  size: Sizes | undefined;
+}
+
+function Toggle({ size }: Props) {
+  return <Container size={size}> </Container>;
 }
 
 export default Toggle;
 
-const Container = styled.div``;
+Toggle.defaultProps = {
+  size: "MEDIUM",
+};
+
+const Container = styled.div<StyledProps>`
+  ${(props) => {
+    switch (props.size) {
+      case "SMALL":
+        return css``;
+      case "MEDIUM":
+        return css``;
+      case "LARGE":
+        return css``;
+      default:
+        return css``;
+    }
+  }}
+`;

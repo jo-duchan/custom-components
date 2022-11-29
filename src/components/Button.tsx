@@ -10,12 +10,12 @@ import { Text } from "styles/typography";
 import IconSet from "./IconSet";
 
 // Type
-import { ButtonProps, States, Size } from "type/button-type";
+import { ButtonProps, States, Sizes } from "type/button-type";
 
 interface StyledProps {
   btnType?: boolean;
   states?: States;
-  size?: Size;
+  size?: Sizes;
   fixedWidth?: boolean;
 }
 
