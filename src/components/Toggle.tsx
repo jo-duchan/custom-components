@@ -4,16 +4,20 @@ import ColorSystem from "styles/color-system";
 
 // Type
 import { Sizes } from "type/toggle-type";
+
 interface Props {
   size?: Sizes;
+  checked: boolean;
+  onClick: () => void;
 }
 
 interface StyledProps {
   size: Sizes | undefined;
+  checked: boolean;
 }
 
-function Toggle({ size }: Props) {
-  return <Container size={size}> </Container>;
+function Toggle({ size, checked, onClick }: Props) {
+  return <Container onClick={onClick} size={size} checked={checked} />;
 }
 
 export default Toggle;
@@ -24,17 +28,37 @@ Toggle.defaultProps = {
 
 const Container = styled.div<StyledProps>`
   position: relative;
-  background: ${ColorSystem.Neutral[400]};
   border-radius: 100px;
+  cursor: pointer;
+  user-select: none;
+  transition: 200ms ease-in-out;
+  transition-property: background;
 
   &::before {
     content: "";
     position: absolute;
     top: 50%;
-    transform: translate3d(0, -50%, 0);
     background: ${ColorSystem.Neutral[0]};
     border-radius: 100%;
+    transition: 200ms ease-in-out;
+    transition-property: transform;
   }
+
+  ${(props) =>
+    props.checked
+      ? css`
+          background: ${ColorSystem.Secondary[600]};
+          &::before {
+            transform: translate3d(100%, -50%, 0);
+          }
+        `
+      : css`
+          background: ${ColorSystem.Neutral[400]};
+          &::before {
+            transform: translate3d(0, -50%, 0);
+          }
+        `}
+
   ${(props) => {
     switch (props.size) {
       case "SMALL":

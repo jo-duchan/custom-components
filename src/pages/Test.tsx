@@ -62,6 +62,7 @@ const optionList: OptionList = [
 function Test() {
   const [btnStates, setBtnStates] = useState<States>("DEFAULT");
   const [fixedWidth, setFixedWidth] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(false);
 
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined
@@ -114,7 +115,7 @@ function Test() {
         <Checkbox label="Text" />
       </Section>
       <Section>
-        <Toggle />
+        <Toggle checked={checked} onClick={() => setChecked(!checked)} />
       </Section>
     </Container>
   );
