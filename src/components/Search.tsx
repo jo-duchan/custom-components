@@ -10,17 +10,23 @@ import { Text } from "styles/typography";
 import IconSet from "components/IconSet";
 
 interface Props {
+  value: string;
+  onChange: React.Dispatch<React.SetStateAction<string>>;
   width?: string;
   placeholder?: string;
 }
 
-function Search({ width, placeholder }: Props) {
+function Search({ value, onChange, width, placeholder }: Props) {
   return (
     <Container>
       <IconWraper>
         <IconSet type="SEARCH" />
       </IconWraper>
-      <Input placeholder={placeholder} />
+      <Input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+      />
     </Container>
   );
 }

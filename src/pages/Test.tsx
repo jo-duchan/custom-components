@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import optionList from "optionData";
 
 // Style
 import ColorSystem from "styles/color-system";
@@ -14,56 +15,12 @@ import Search from "components/Search";
 
 // Type
 import { States } from "type/button-type";
-type OptionList = {
-  id: number;
-  label: string;
-  state: States;
-  fixed: boolean;
-  type: "STATES" | "FIXEDWIDTH";
-}[];
-
-const optionList: OptionList = [
-  {
-    id: 0,
-    label: "Default",
-    state: "DEFAULT",
-    fixed: false,
-    type: "STATES",
-  },
-  {
-    id: 1,
-    label: "Disabled",
-    state: "DISABLED",
-    fixed: false,
-    type: "STATES",
-  },
-  {
-    id: 2,
-    label: "Focused",
-    state: "FOCUSED",
-    fixed: false,
-    type: "STATES",
-  },
-  {
-    id: 3,
-    label: "Loading",
-    state: "LOADING",
-    fixed: false,
-    type: "STATES",
-  },
-  {
-    id: 4,
-    label: "FixedWidth",
-    state: "DEFAULT",
-    fixed: true,
-    type: "FIXEDWIDTH",
-  },
-];
 
 function Test() {
   const [btnStates, setBtnStates] = useState<States>("DEFAULT");
   const [fixedWidth, setFixedWidth] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined
@@ -119,7 +76,7 @@ function Test() {
         <Toggle checked={checked} onClick={() => setChecked(!checked)} />
       </Section>
       <Section>
-        <Search />
+        <Search value={searchValue} onChange={setSearchValue} />
       </Section>
     </Container>
   );
