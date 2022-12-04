@@ -12,6 +12,7 @@ import Input from "components/Input";
 import Checkbox from "components/Checkbox";
 import Toggle from "components/Toggle";
 import Search from "components/Search";
+import Textarea from "components/Textarea";
 
 // Type
 import { States } from "type/button-type";
@@ -61,7 +62,7 @@ function Test() {
         <Button
           btnType="PRIMARY"
           states={btnStates}
-          size="LARGE"
+          size="MEDIUM"
           onClick={handleClick}
           fixedWidth={fixedWidth}
         />
@@ -77,6 +78,9 @@ function Test() {
       </Section>
       <Section>
         <Search value={searchValue} onChange={setSearchValue} />
+      </Section>
+      <Section>
+        <Textarea />
       </Section>
     </Container>
   );
