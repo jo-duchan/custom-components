@@ -1,11 +1,10 @@
 export type States =
   | "DEFAULT"
   | "HOVERED"
-  | "PRESSED"
   | "FOCUSED"
-  | "LOADING"
   | "DISABLED"
-  | "SKELETON";
+  | "ERROR"
+  | "ERROR_FOCUSED";
 
 export type Sizes = "SMALL" | "MEDIUM" | "LARGE";
 
@@ -14,4 +13,5 @@ export interface TextareaProps {
   size?: Sizes;
   label?: string;
   placeholder?: string;
+  errorText?: string;
 }
