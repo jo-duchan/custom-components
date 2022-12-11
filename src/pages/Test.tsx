@@ -80,7 +80,7 @@ function Test() {
         <Search value={searchValue} onChange={setSearchValue} />
       </Section>
       <Section>
-        <Textarea states="ERROR" label="Label" />
+        <Textarea states="DEFAULT" label="Label" />
       </Section>
     </Container>
   );
