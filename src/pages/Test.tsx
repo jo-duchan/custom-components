@@ -13,6 +13,7 @@ import Checkbox from "components/Checkbox";
 import Toggle from "components/Toggle";
 import Search from "components/Search";
 import Textarea from "components/Textarea";
+import Slider from "components/Slider";
 
 // Type
 import { States } from "type/button-type";
@@ -81,6 +82,9 @@ function Test() {
       </Section>
       <Section>
         <Textarea states="DEFAULT" label="Label" />
+      </Section>
+      <Section>
+        <Slider />
       </Section>
     </Container>
   );
