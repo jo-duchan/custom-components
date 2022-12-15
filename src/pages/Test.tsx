@@ -23,12 +23,14 @@ function Test() {
   const [fixedWidth, setFixedWidth] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
+  const [count, setCount] = useState<number>(0);
 
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined
   ) => {
     e?.preventDefault();
-    alert("You clicked the button!");
+    // alert("You clicked the button!");
+    setCount((current) => (current = current + 1));
   };
 
   const handleChange = (
@@ -60,6 +62,7 @@ function Test() {
             </Label>
           ))}
         </List>
+        <Count>{`Count: ${count}`}</Count>
         <Button
           btnType="PRIMARY"
           states={btnStates}
@@ -144,4 +147,8 @@ const Label = styled.label`
   ${Text.Body400};
   cursor: pointer;
   user-select: none;
+`;
+
+const Count = styled.span`
+  ${Text.Body400};
 `;
