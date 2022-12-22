@@ -7,7 +7,7 @@ import ColorSystem from "styles/color-system";
 import { Text } from "styles/typography";
 
 // Components
-import IconSet from "./IconSet";
+import IconSet from "components/IconSet";
 
 // Type
 import { ButtonProps, States, Sizes } from "type/button-type";

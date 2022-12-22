@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 
 // Style
@@ -17,6 +17,18 @@ interface StyledProps {
 }
 
 function Input({ states, width, label, placeholder, errorText }: InputProps) {
+
+  const InputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    console.log(states);
+    if (!InputRef) return;
+
+    if (states === "FOCUSED" || states === "ERROR_FOCUSED") {
+      InputRef.current?.focus();
+    }
+  }, [states]);
+
   return (
     <Container width={width}>
       {label && <Label htmlFor={label}>{label}</Label>}
@@ -25,10 +37,11 @@ function Input({ states, width, label, placeholder, errorText }: InputProps) {
         placeholder={placeholder}
         id={label}
         disabled={states === "DISABLED"}
-        error={states === "ERROR"}
+        error={states === "ERROR" || states === "ERROR_FOCUSED"}
         autoComplete="off"
+        ref={InputRef}
       />
-      {states === "ERROR" && (
+      {(states === "ERROR" || states === "ERROR_FOCUSED") && (
         <ErrorElement>
           <IconSet type="ERROR" />
           {errorText}
