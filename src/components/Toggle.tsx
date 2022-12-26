@@ -77,7 +77,7 @@ const Container = styled.div<StyledProps>`
           width: 44px;
           height: 24px;
           &::before {
-            left: 3px;
+            left: 4px;
             width: 18px;
             height: 18px;
           }
@@ -87,7 +87,7 @@ const Container = styled.div<StyledProps>`
           width: 60px;
           height: 32px;
           &::before {
-            left: 4px;
+            left: 6px;
             width: 24px;
             height: 24px;
           }
