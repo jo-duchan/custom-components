@@ -12,7 +12,6 @@ import IconSet from "components/IconSet";
 interface Props {
   value: string;
   onChange: React.Dispatch<React.SetStateAction<string>>;
-  width?: string;
   placeholder?: string;
 }
 
@@ -20,7 +19,7 @@ interface StyledProps {
   show?: boolean;
 }
 
-function Search({ value, onChange, width, placeholder }: Props) {
+function Search({ value, onChange, placeholder }: Props) {
   return (
     <Container>
       <IconWraper>
@@ -41,7 +40,6 @@ function Search({ value, onChange, width, placeholder }: Props) {
 export default Search;
 
 Search.defaultProps = {
-  width: "",
   placeholder: "Search",
 };
 
