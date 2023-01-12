@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 
 // Style
 import ColorSystem from "styles/color-system";
@@ -7,21 +7,26 @@ import { LayoutCenter } from "styles/common";
 import { Text } from "styles/typography";
 
 //Type
+import { ChipSize } from "type/chip-type";
+
 interface Props {
   emoji?: string | undefined;
   icon?: string | undefined;
   text?: string;
+  size?: ChipSize;
 }
 interface StyledProps {
   active: boolean;
   paddingLeft: boolean;
+  size: ChipSize | undefined;
 }
 
-function Chip({ emoji, icon, text }: Props) {
+function Chip({ emoji, icon, text, size }: Props) {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
     <Container
+      size={size}
       active={isActive}
       paddingLeft={!emoji || !icon}
       onClick={() => setIsActive(!isActive)}
@@ -38,7 +43,12 @@ Chip.defaultProps = {
   emoji: undefined,
   icon: undefined,
   text: "Text",
+  size: "MEDIUM",
 };
+
+const TextWrapper = styled.span`
+  color: ${ColorSystem.Neutral[900]};
+`;
 
 const Container = styled.div<StyledProps>`
   position: relative;
@@ -47,16 +57,37 @@ const Container = styled.div<StyledProps>`
   align-items: center;
   gap: 8px;
   width: fit-content;
-  height: 40px;
   background: ${ColorSystem.Neutral[0]};
   border: 1px solid ${ColorSystem.Neutral[300]};
-  border-radius: 20px;
   padding: ${(props) => (props.paddingLeft ? "8px 20px 8px 16px" : "8px 20px")};
   box-sizing: border-box;
   transition: 200ms ease-in-out;
   transition-property: border;
   cursor: pointer;
   user-select: none;
+
+  ${(props) => {
+    switch (props.size) {
+      case "SMALL":
+        return css`
+          height: 36px;
+          border-radius: 18px;
+          ${TextWrapper} {
+            ${Text.Body300}
+          }
+        `;
+      case "MEDIUM":
+        return css`
+          height: 40px;
+          border-radius: 20px;
+          ${TextWrapper} {
+            ${Text.Body400}
+          }
+        `;
+      default:
+        return css``;
+    }
+  }}
 
   &:hover {
     border-color: ${ColorSystem.Neutral[400]};
@@ -76,9 +107,4 @@ const Container = styled.div<StyledProps>`
     transition: 200ms ease-in-out;
     transition-property: opacity;
   }
-`;
-
-const TextWrapper = styled.span`
-  ${Text.Body400};
-  color: ${ColorSystem.Neutral[900]};
 `;
