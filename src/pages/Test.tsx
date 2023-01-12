@@ -14,6 +14,7 @@ import Toggle from "components/Toggle";
 import Search from "components/Search";
 import Textarea from "components/Textarea";
 import Slider from "components/Slider";
+import Chip from "components/Chip";
 
 // Type
 import { States } from "type/button-type";
@@ -88,6 +89,9 @@ function Test() {
       </Section>
       <Section>
         <Slider />
+      </Section>
+      <Section>
+        <Chip />
       </Section>
     </Container>
   );
