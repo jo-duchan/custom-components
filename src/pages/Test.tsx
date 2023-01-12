@@ -91,7 +91,7 @@ function Test() {
         <Slider />
       </Section>
       <Section>
-        <Chip />
+        <Chip text="Chip Text" />
       </Section>
     </Container>
   );
