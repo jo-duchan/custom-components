@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 // Style
@@ -8,17 +8,25 @@ import { Text } from "styles/typography";
 
 //Type
 interface Props {
+  emoji?: string | undefined;
+  icon?: string | undefined;
   text?: string;
 }
 interface StyledProps {
   active: boolean;
+  paddingLeft: boolean;
 }
 
-function Chip({ text }: Props) {
+function Chip({ emoji, icon, text }: Props) {
   const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
-    <Container active={isActive} onClick={() => setIsActive(!isActive)}>
+    <Container
+      active={isActive}
+      paddingLeft={!emoji || !icon}
+      onClick={() => setIsActive(!isActive)}
+    >
+      {emoji && <TextWrapper>{emoji}</TextWrapper>}
       <TextWrapper>{text}</TextWrapper>
     </Container>
   );
@@ -27,6 +35,8 @@ function Chip({ text }: Props) {
 export default Chip;
 
 Chip.defaultProps = {
+  emoji: undefined,
+  icon: undefined,
   text: "Text",
 };
 
@@ -41,8 +51,7 @@ const Container = styled.div<StyledProps>`
   background: ${ColorSystem.Neutral[0]};
   border: 1px solid ${ColorSystem.Neutral[300]};
   border-radius: 20px;
-  //icon이 있으면 left value 수정 필요.
-  padding: 8px 20px;
+  padding: ${(props) => (props.paddingLeft ? "8px 20px 8px 16px" : "8px 20px")};
   box-sizing: border-box;
   transition: 200ms ease-in-out;
   transition-property: border;

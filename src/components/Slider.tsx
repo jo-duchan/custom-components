@@ -37,6 +37,7 @@ function Slider() {
       <Rail sliderPos={sliderPos}>
         <Knob onMouseDown={handleMouseDown} sliderPos={sliderPos} />
       </Rail>
+      {/* {Math.round((sliderPos / 264) * 100)} */}
     </Container>
   );
 }

@@ -91,7 +91,7 @@ function Test() {
         <Slider />
       </Section>
       <Section>
-        <Chip text="Chip Text" />
+        <Chip emoji="😆" text="Text" />
       </Section>
     </Container>
   );
