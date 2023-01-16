@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 
 // Style
 import ColorSystem from "styles/color-system";
-import { LayoutCenter } from "styles/common";
 import { Text } from "styles/typography";
 
 //Type

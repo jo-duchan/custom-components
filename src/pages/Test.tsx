@@ -15,6 +15,7 @@ import Search from "components/Search";
 import Textarea from "components/Textarea";
 import Slider from "components/Slider";
 import Chip from "components/Chip";
+import PillTab from "components/PillTab";
 
 // Type
 import { States } from "type/button-type";
@@ -25,6 +26,11 @@ function Test() {
   const [checked, setChecked] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [count, setCount] = useState<number>(0);
+  const [content, setContent] = useState([
+    { label: "Label01", value: false },
+    { label: "Label02", value: false },
+    { label: "Label03", value: false },
+  ]);
 
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined
@@ -91,7 +97,10 @@ function Test() {
         <Slider />
       </Section>
       <Section>
-        <Chip emoji="😆" text="Text" size="SMALL" />
+        <Chip emoji="😆" text="Text" size="MEDIUM" />
+      </Section>
+      <Section>
+        <PillTab content={content} setContent={setContent} />
       </Section>
     </Container>
   );
