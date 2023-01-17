@@ -30,6 +30,7 @@ function Test() {
     { label: "Label01", value: true },
     { label: "Label02", value: false },
     { label: "Label03", value: false },
+    { label: "Label04", value: false },
   ]);
 
   const handleClick = (

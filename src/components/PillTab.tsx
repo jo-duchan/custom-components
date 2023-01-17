@@ -8,21 +8,16 @@ import { Text } from "styles/typography";
 import { OtherShadow } from "styles/shadow";
 
 // Type
+import { ContentType, SetContentType, LineType } from "type/pilltab-type";
 interface Props {
-  content: { label: string; value: boolean }[];
-  setContent: React.Dispatch<
-    React.SetStateAction<
-      {
-        label: string;
-        value: boolean;
-      }[]
-    >
-  >;
+  content: ContentType;
+  setContent: SetContentType;
 }
 
 interface StyledProps {
   active?: boolean;
   posIdx?: number;
+  line?: LineType;
 }
 
 function PillTab({ content, setContent }: Props) {
@@ -43,16 +38,39 @@ function PillTab({ content, setContent }: Props) {
     setPosIdx(index);
     setContent(newArray);
   };
+
+  const calcDirection = (index: number, value: boolean): LineType => {
+    if (
+      index !== 0 &&
+      index + 1 !== content.length &&
+      !value &&
+      index < posIdx
+    ) {
+      return "LEFT";
+    }
+
+    if (
+      index !== 0 &&
+      index + 1 !== content.length &&
+      !value &&
+      index > posIdx
+    ) {
+      return "RIGHT";
+    }
+
+    return "NONE";
+  };
   return (
     <Container>
       <Tab>
-        {content.map((content, index) => (
+        {content.map((item, index) => (
           <Label
-            active={content.value}
+            active={item.value}
+            line={calcDirection(index, item.value)}
             onClick={() => handleClick(index)}
             key={index}
           >
-            {`${content.label}`}
+            {`${item.label}`}
           </Label>
         ))}
       </Tab>
@@ -81,11 +99,73 @@ const Tab = styled.div`
 `;
 
 const Label = styled.span<StyledProps>`
+  position: relative;
   ${LayoutCenter};
   width: 120px;
   height: 100%;
   cursor: pointer;
   user-select: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1px;
+    height: 16px;
+    background: ${ColorSystem.Neutral[300]};
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    transition-property: opacity;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0mm;
+    width: 1px;
+    height: 16px;
+    background: ${ColorSystem.Neutral[300]};
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    transition-property: opacity;
+  }
+
+  ${(props) => {
+    switch (props.line) {
+      case "LEFT":
+        return css`
+          &::after {
+            opacity: 1;
+          }
+
+          &::before {
+            opacity: 0;
+          }
+        `;
+      case "RIGHT":
+        return css`
+          &::after {
+            opacity: 0;
+          }
+
+          &::before {
+            opacity: 1;
+          }
+        `;
+      case "NONE":
+        return css`
+          &::after {
+            opacity: 0;
+          }
+
+          &::before {
+            opacity: 0;
+          }
+        `;
+      default:
+        return;
+    }
+  }}
 
   ${(props) =>
     props.active
