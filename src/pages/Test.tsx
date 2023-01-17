@@ -27,7 +27,7 @@ function Test() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [count, setCount] = useState<number>(0);
   const [content, setContent] = useState([
-    { label: "Label01", value: false },
+    { label: "Label01", value: true },
     { label: "Label02", value: false },
     { label: "Label03", value: false },
   ]);
