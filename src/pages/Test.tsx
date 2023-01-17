@@ -26,12 +26,17 @@ function Test() {
   const [checked, setChecked] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [count, setCount] = useState<number>(0);
+  const [slideValue, setSlideValue] = useState<number>(0);
   const [content, setContent] = useState([
     { label: "Label01", value: true },
     { label: "Label02", value: false },
     { label: "Label03", value: false },
     { label: "Label04", value: false },
   ]);
+
+  useEffect(() => {
+    console.log(`퍼센트는 : ${slideValue} %`);
+  }, [slideValue]);
 
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined
@@ -95,7 +100,7 @@ function Test() {
         <Textarea states="DEFAULT" label="Label" />
       </Section>
       <Section>
-        <Slider />
+        <Slider setValue={setSlideValue} />
       </Section>
       <Section>
         <Chip emoji="😆" text="Text" size="MEDIUM" />

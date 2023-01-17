@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 // Style
 import ColorSystem from "styles/color-system";
 
 // Type
+interface Props {
+  setValue?: React.Dispatch<React.SetStateAction<number>> | undefined;
+}
+
 interface StyledProps {
   sliderPos: number;
 }
 
-function Slider() {
+function Slider({ setValue }: Props) {
   const [sliderPos, setSliderPos] = useState(0);
+
+  useEffect(() => {
+    if (!setValue) return;
+
+    setValue(Math.round((sliderPos / 264) * 100));
+  }, [sliderPos, setValue]);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
@@ -43,6 +53,10 @@ function Slider() {
 }
 
 export default Slider;
+
+Slider.defaultProps = {
+  setValue: undefined,
+};
 
 const Container = styled.div`
   position: relative;
