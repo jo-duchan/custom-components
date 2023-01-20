@@ -16,6 +16,7 @@ import Textarea from "components/Textarea";
 import Slider from "components/Slider";
 import Chip from "components/Chip";
 import PillTab from "components/PillTab";
+import Select from "components/Select";
 
 // Type
 import { States } from "type/button-type";
@@ -107,6 +108,9 @@ function Test() {
       </Section>
       <Section>
         <PillTab content={content} setContent={setContent} />
+      </Section>
+      <Section>
+        <Select />
       </Section>
     </Container>
   );
