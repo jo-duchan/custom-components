@@ -58,6 +58,10 @@ function Test() {
     }
   };
 
+  const handleSelect = (value: string | number) => {
+    console.log(`Select Value는 : ${value}`);
+  }
+
   return (
     <Container>
       <h3>Test</h3>
@@ -110,7 +114,7 @@ function Test() {
         <PillTab content={content} setContent={setContent} />
       </Section>
       <Section>
-        <Select />
+        <Select option={[0, 1, 2, 3]} onChange={handleSelect} />
       </Section>
     </Container>
   );

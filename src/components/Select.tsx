@@ -1,25 +1,42 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-function Select() {
-    const [isClick, setIsClick] = useState<boolean>(false);
+// Type
+interface Props {
+    option: string[] | number[] | (string | number)[]
+    onChange: (value: string | number) => void;
+}
 
+function Select({ option, onChange }:Props) {
+    const [isClick, setIsClick] = useState<boolean>(false);
+    const [selectValue, setSelectValue] = useState<string | number | undefined>(undefined);
+
+    // Show & Hide Option
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation();
         setIsClick(!isClick)
     }
 
-    const handleOption = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // Select Option
+    const handleOption = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, value: string | number) => {
         e.stopPropagation();
-        console.log("Option");
+        console.log("Option", value);
+        setIsClick(false);
+        setSelectValue(value);
     }
 
+    // Callback
     useEffect(() => {
-        console.log(isClick);
+        if (!selectValue) return;
+        
+        onChange(selectValue);
 
-        function handleOuter(ev: MouseEvent) {
-            // ev.stopPropagation();
-            console.log("Good");
+    }, [selectValue, onChange])
+
+    // Outer Click, Remove Option Area
+    useEffect(() => {
+
+        function handleOuter() {
             setIsClick(false);
             window.removeEventListener("click", handleOuter);
         }
@@ -38,7 +55,18 @@ function Select() {
     return (
         <Container>
             <InputWrapper onClick={handleClick}>InputWrapper</InputWrapper>
-            {isClick && <OptionWrapper onClick={handleOption}>OptionWrapper</OptionWrapper>}
+            {isClick &&
+                <OptionWrapper>
+                    {option.map((value, index) =>
+                        <Option
+                            key={index}
+                            onClick={(e:React.MouseEvent<HTMLDivElement, MouseEvent>) => handleOption(e, value)}
+                        >
+                            {value}
+                        </Option>
+                    )}
+                </OptionWrapper>
+            }
         </Container>
     )
 };
@@ -63,3 +91,5 @@ width: 100px;
 height: 100px;
 background: blue;
 `;
+
+const Option = styled.div``;
