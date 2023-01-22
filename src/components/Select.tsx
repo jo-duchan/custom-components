@@ -3,13 +3,15 @@ import styled from "styled-components";
 
 // Type
 interface Props {
+    label?: string;
+    placeholder?: string;
     option: string[] | number[] | (string | number)[]
     onChange: (value: string | number) => void;
 }
 
-function Select({ option, onChange }:Props) {
+function Select({ label, placeholder, option, onChange }:Props) {
     const [isClick, setIsClick] = useState<boolean>(false);
-    const [selectValue, setSelectValue] = useState<string | number | undefined>(undefined);
+    const [selectValue, setSelectValue] = useState<string | number | undefined>(placeholder);
 
     // Show & Hide Option
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -20,7 +22,7 @@ function Select({ option, onChange }:Props) {
     // Select Option
     const handleOption = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, value: string | number) => {
         e.stopPropagation();
-        console.log("Option", value);
+        console.log(`Select Option: ${value}`);
         setIsClick(false);
         setSelectValue(value);
     }
@@ -54,7 +56,10 @@ function Select({ option, onChange }:Props) {
 
     return (
         <Container>
-            <InputWrapper onClick={handleClick}>InputWrapper</InputWrapper>
+            <InputWrapper onClick={handleClick}>
+            {label && <Label>{label}</Label>}
+                <InputElement value={selectValue} disabled />
+            </InputWrapper>
             {isClick &&
                 <OptionWrapper>
                     {option.map((value, index) =>
@@ -73,6 +78,11 @@ function Select({ option, onChange }:Props) {
 
 export default Select;
 
+Select.defaultProps = {
+    label: undefined,
+    placeholder: undefined,
+}
+
 const Container = styled.div`
 /* width: 100px;
 height: 100px; */
@@ -84,6 +94,10 @@ width: 100px;
 height: 100px;
 background: pink;
 `;
+
+const Label = styled.label``
+
+const InputElement = styled.input``
 
 
 const OptionWrapper = styled.div`

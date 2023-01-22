@@ -114,7 +114,7 @@ function Test() {
         <PillTab content={content} setContent={setContent} />
       </Section>
       <Section>
-        <Select option={[0, 1, 2, 3]} onChange={handleSelect} />
+        <Select label="Label" placeholder="Placeholder" option={[0, 1, 2, 3]} onChange={handleSelect} />
       </Section>
     </Container>
   );
