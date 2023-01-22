@@ -84,15 +84,18 @@ Select.defaultProps = {
 }
 
 const Container = styled.div`
-/* width: 100px;
-height: 100px; */
-
+display: flex;
+flex-direction: column;
+gap: 10px;
 `;
 
 const InputWrapper = styled.div`
-width: 100px;
-height: 100px;
+display: flex;
+flex-direction: column;
+gap: 4px;
 background: pink;
+/* Fixed Width 처리 필요 */
+width: 264px;
 `;
 
 const Label = styled.label``
