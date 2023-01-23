@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+// Components
+import IconSet from "components/IconSet";
+
 // Style
 import ColorSystem from "styles/color-system";
 import { Text } from "styles/typography";
 
 // Type
 interface Props {
+  states?: "DEFAULT" | "FOCUSED" | "DISABLED" | "ERROR";
   label?: string;
   placeholder?: string;
+  helpText?: string;
+  errorText?: string;
   option: string[] | number[] | (string | number)[];
   onChange: (value: string | number) => void;
 }
 
-function Select({ label, placeholder, option, onChange }: Props) {
+function Select({
+  states,
+  label,
+  placeholder,
+  helpText,
+  errorText,
+  option,
+  onChange,
+}: Props) {
   const [isClick, setIsClick] = useState<boolean>(false);
   const [selectValue, setSelectValue] = useState<string | number | undefined>(
     undefined
@@ -61,9 +75,22 @@ function Select({ label, placeholder, option, onChange }: Props) {
 
   return (
     <Container>
-      {label && <Label onClick={handleClick}>{label}</Label>}
-      <InputWrapper onClick={handleClick}>
-        <InputElement placeholder={placeholder} value={selectValue} disabled />
+      <InputWrapper>
+        {label && <Label onClick={handleClick}>{label}</Label>}
+        <InputOuter onClick={handleClick}>
+          <InputElement
+            placeholder={placeholder}
+            value={selectValue}
+            disabled
+          />
+        </InputOuter>
+        {helpText && <HelpText>{helpText}</HelpText>}
+        {states === "ERROR" && (
+          <ErrorText>
+            <IconSet type="ERROR" />
+            {errorText}
+          </ErrorText>
+        )}
       </InputWrapper>
       {isClick && (
         <OptionWrapper>
@@ -86,41 +113,93 @@ function Select({ label, placeholder, option, onChange }: Props) {
 export default Select;
 
 Select.defaultProps = {
+  states: "DEFAULT",
   label: undefined,
   placeholder: undefined,
+  helpText: undefined,
+  errorText: undefined,
 };
 
 const Container = styled.div`
+  /* Fixed Width 처리 필요 */
+  width: 264px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  & :is(div, span) {
+    cursor: pointer;
+    user-select: none;
+  }
 `;
 
 const Label = styled.span`
+  width: fit-content;
   ${Text.Medium400};
+`;
+
+const HelpText = styled.span`
+  ${Text.Body300};
+  color: ${ColorSystem.Neutral[600]};
+  cursor: text !important;
+  user-select: text !important;
+`;
+
+const ErrorText = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  ${Text.Medium300};
+  color: ${ColorSystem.Error[600]};
+  cursor: text !important;
+  user-select: text !important;
 `;
 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  /* Fixed Width 처리 필요 */
-  width: 264px;
 `;
+
+const InputOuter = styled.div``;
 
 const InputElement = styled.input`
   width: 100%;
   height: auto;
-  padding: 16px 14px 16px 16px;
+  padding: 12px 14px 12px 16px;
   border-radius: 12px;
   box-sizing: border-box;
-  background: pink;
+  background: ${ColorSystem.Neutral[0]};
+  border: 1px solid;
+  border-color: ${ColorSystem.Neutral[300]};
+  ${Text.Body400};
+  color: ${ColorSystem.Neutral[900]};
+
+  &::placeholder {
+    color: ${ColorSystem.Neutral[500]};
+  }
+
+  &:hover {
+    border-color: ${ColorSystem.Neutral[500]};
+  }
+
+  /* States로 수정 필요 */
+  /* &:focus {
+    outline: 2px solid ${ColorSystem.Secondary[600]};
+  } */
 `;
 
 const OptionWrapper = styled.div`
-  width: 100px;
-  height: 100px;
-  background: blue;
+  width: 100%;
+  height: auto;
+  padding: 12px 0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: ${ColorSystem.Neutral[0]};
+  border: 1px solid ${ColorSystem.Neutral[300]};
 `;
 
-const Option = styled.div``;
+const Option = styled.div`
+  padding: 8px 16px;
+  ${Text.Body400};
+  color: ${ColorSystem.Neutral[900]};
+`;
