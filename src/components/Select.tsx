@@ -75,36 +75,36 @@ function Select({
 
   return (
     <Container>
+      {label && <Label onClick={handleClick}>{label}</Label>}
       <InputWrapper>
-        {label && <Label onClick={handleClick}>{label}</Label>}
         <InputOuter onClick={handleClick}>
           <InputElement
             placeholder={placeholder}
-            value={selectValue}
+            value={selectValue || ""}
             disabled
           />
         </InputOuter>
-        {helpText && <HelpText>{helpText}</HelpText>}
-        {states === "ERROR" && (
-          <ErrorText>
-            <IconSet type="ERROR" />
-            {errorText}
-          </ErrorText>
+        {isClick && (
+          <OptionWrapper>
+            {option.map((value, index) => (
+              <Option
+                key={index}
+                onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+                  handleOption(e, value)
+                }
+              >
+                {value}
+              </Option>
+            ))}
+          </OptionWrapper>
         )}
       </InputWrapper>
-      {isClick && (
-        <OptionWrapper>
-          {option.map((value, index) => (
-            <Option
-              key={index}
-              onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                handleOption(e, value)
-              }
-            >
-              {value}
-            </Option>
-          ))}
-        </OptionWrapper>
+      {helpText && !isClick && <HelpText>{helpText}</HelpText>}
+      {states === "ERROR" && !isClick && (
+        <ErrorText>
+          <IconSet type="ERROR" />
+          {errorText}
+        </ErrorText>
       )}
     </Container>
   );
@@ -122,10 +122,11 @@ Select.defaultProps = {
 
 const Container = styled.div`
   /* Fixed Width 처리 필요 */
+  position: relative;
   width: 264px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
   & :is(div, span) {
     cursor: pointer;
     user-select: none;
@@ -155,9 +156,7 @@ const ErrorText = styled.span`
 `;
 
 const InputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  position: relative;
 `;
 
 const InputOuter = styled.div``;
@@ -189,6 +188,8 @@ const InputElement = styled.input`
 `;
 
 const OptionWrapper = styled.div`
+  position: absolute;
+  margin-top: 10px;
   width: 100%;
   height: auto;
   padding: 12px 0;
