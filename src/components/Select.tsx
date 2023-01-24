@@ -45,6 +45,7 @@ function Select({
     value: string | number
   ) => {
     e.stopPropagation();
+    // if (!selectValue) return;
     console.log(`Select Option: ${value}`);
     setIsClick(false);
     setSelectValue(value);
@@ -80,7 +81,11 @@ function Select({
         <InputOuter onClick={handleClick}>
           <InputElement
             placeholder={placeholder}
-            value={selectValue || ""}
+            value={
+              selectValue === undefined || selectValue === null
+                ? ""
+                : selectValue
+            }
             disabled
           />
         </InputOuter>
