@@ -1,1 +1,6 @@
-export type IconType = "PROGRESS" | "ERROR" | "SEARCH" | "CLOSE";
+export type IconType =
+  | "PROGRESS"
+  | "ERROR"
+  | "SEARCH"
+  | "CLOSE"
+  | "CHEVRON-DOWN";

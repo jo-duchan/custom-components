@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // Components
 import IconSet from "components/IconSet";
@@ -10,13 +10,18 @@ import { Text } from "styles/typography";
 
 // Type
 interface Props {
-  states?: "DEFAULT" | "FOCUSED" | "DISABLED" | "ERROR";
+  states?: "DEFAULT" | "DISABLED" | "ERROR";
   label?: string;
   placeholder?: string;
   helpText?: string;
   errorText?: string;
   option: string[] | number[] | (string | number)[];
   onChange: (value: string | number) => void;
+}
+
+interface StyledProps {
+  focused?: boolean;
+  states?: "DEFAULT" | "DISABLED" | "ERROR";
 }
 
 function Select({
@@ -36,7 +41,7 @@ function Select({
   // Show & Hide Option
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
-    if (states === "ERROR") return;
+    if (states === "ERROR" || states === "DISABLED") return;
     setIsClick(!isClick);
   };
 
@@ -79,9 +84,10 @@ function Select({
     <Container>
       {label && <Label onClick={handleClick}>{label}</Label>}
       <InputWrapper>
-        <InputOuter onClick={handleClick}>
+        <InputOuter onClick={handleClick} focused={isClick} states={states}>
           <InputElement
             placeholder={placeholder}
+            // size={placeholder?.length}
             value={
               selectValue === undefined || selectValue === null
                 ? ""
@@ -89,6 +95,7 @@ function Select({
             }
             disabled
           />
+          <IconSet type="CHEVRON-DOWN" />
         </InputOuter>
         {isClick && (
           <OptionWrapper>
@@ -127,8 +134,9 @@ Select.defaultProps = {
 };
 
 const Container = styled.div`
-  /* Fixed Width 처리 필요 */
   position: relative;
+  /* Fixed Width 처리 필요 */
+  /* width: fit-content; */
   width: 264px;
   display: flex;
   flex-direction: column;
@@ -165,9 +173,10 @@ const InputWrapper = styled.div`
   position: relative;
 `;
 
-const InputOuter = styled.div``;
-
-const InputElement = styled.input`
+const InputOuter = styled.div<StyledProps>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: auto;
   padding: 12px 14px 12px 16px;
@@ -178,19 +187,59 @@ const InputElement = styled.input`
   border-color: ${ColorSystem.Neutral[300]};
   ${Text.Body400};
   color: ${ColorSystem.Neutral[900]};
+  transition: 200ms ease-in-out;
+  transition-property: border-color;
 
+  & svg {
+    transition: 250ms ease-in-out;
+    transition-property: transform;
+  }
+
+  ${(props) =>
+    props.focused &&
+    css`
+      padding: 13px 15px 13px 17px;
+      border-width: 0;
+      outline: 2px solid ${ColorSystem.Secondary[600]};
+
+      & svg {
+        transform: rotate(180deg);
+      }
+    `};
+
+  ${(props) => {
+    switch (props.states) {
+      case "ERROR":
+        return css`
+          border-color: ${ColorSystem.Error[600]};
+        `;
+      case "DISABLED":
+        return css`
+          background: ${ColorSystem.Neutral[100]};
+          border-color: ${ColorSystem.Neutral[200]};
+          color: ${ColorSystem.Neutral[400]};
+
+          & input::placeholder {
+            color: ${ColorSystem.Neutral[400]};
+          }
+          & svg path {
+            fill: ${ColorSystem.Neutral[400]};
+          }
+        `;
+      default:
+        return css`
+          &:hover {
+            border-color: ${ColorSystem.Neutral[500]};
+          }
+        `;
+    }
+  }}
+`;
+
+const InputElement = styled.input`
   &::placeholder {
     color: ${ColorSystem.Neutral[500]};
   }
-
-  &:hover {
-    border-color: ${ColorSystem.Neutral[500]};
-  }
-
-  /* States로 수정 필요 */
-  /* &:focus {
-    outline: 2px solid ${ColorSystem.Secondary[600]};
-  } */
 `;
 
 const OptionWrapper = styled.div`

@@ -117,9 +117,9 @@ function Test() {
         <Select
           label="Label"
           placeholder="Placeholder"
-          helpText="Help"
-          errorText="Error"
-          // states="ERROR"
+          // helpText="Help"
+          // errorText="Error"
+          // states="DISABLED"
           option={[0, 1, 2, 3]}
           onChange={handleSelect}
         />
@@ -135,7 +135,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 40px;
   width: 100%;
-  height: 100%;
+  height: 200vh;
   padding: 40px;
   box-sizing: border-box;
 
