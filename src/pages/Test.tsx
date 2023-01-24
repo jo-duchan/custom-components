@@ -119,7 +119,7 @@ function Test() {
           placeholder="Placeholder"
           helpText="Help"
           errorText="Error"
-          states="ERROR"
+          // states="ERROR"
           option={[0, 1, 2, 3]}
           onChange={handleSelect}
         />

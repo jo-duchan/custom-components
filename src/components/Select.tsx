@@ -36,6 +36,7 @@ function Select({
   // Show & Hide Option
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
+    if (states === "ERROR") return;
     setIsClick(!isClick);
   };
 
