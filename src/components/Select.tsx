@@ -9,21 +9,23 @@ import ColorSystem from "styles/color-system";
 import { Text } from "styles/typography";
 
 // Type
+import { States, EventType, ValueType } from "type/select-type";
+
 interface Props {
   width?: number;
-  states?: "DEFAULT" | "DISABLED" | "ERROR";
+  states?: States;
   label?: string;
   placeholder?: string;
   helpText?: string;
   errorText?: string;
   option: string[] | number[] | (string | number)[];
-  onChange: (value: string | number) => void;
+  onChange: (value: ValueType) => void;
 }
 
 interface StyledProps {
   width?: number;
   focused?: boolean;
-  states?: "DEFAULT" | "DISABLED" | "ERROR";
+  states?: States;
 }
 
 function Select({
@@ -37,13 +39,13 @@ function Select({
   onChange,
 }: Props) {
   const [isClick, setIsClick] = useState<boolean>(false);
-  const [selectValue, setSelectValue] = useState<string | number | undefined>(
+  const [selectValue, setSelectValue] = useState<ValueType | undefined>(
     undefined
   );
 
   // Show & Hide Option
   const handleClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    (e: EventType) => {
       e.stopPropagation();
       if (states === "ERROR" || states === "DISABLED") return;
       setIsClick(!isClick);
@@ -52,18 +54,12 @@ function Select({
   );
 
   // Select Option
-  const handleOption = useCallback(
-    (
-      e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-      value: string | number
-    ) => {
-      e.stopPropagation();
-      console.log(`Select Option: ${value}`);
-      setIsClick(false);
-      setSelectValue(value);
-    },
-    []
-  );
+  const handleOption = useCallback((e: EventType, value: ValueType) => {
+    e.stopPropagation();
+    console.log(`Select Option: ${value}`);
+    setIsClick(false);
+    setSelectValue(value);
+  }, []);
 
   // Callback
   useEffect(() => {
