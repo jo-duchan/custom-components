@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled, { css } from "styled-components";
 
 // Components
@@ -10,6 +10,7 @@ import { Text } from "styles/typography";
 
 // Type
 interface Props {
+  width?: number;
   states?: "DEFAULT" | "DISABLED" | "ERROR";
   label?: string;
   placeholder?: string;
@@ -20,11 +21,13 @@ interface Props {
 }
 
 interface StyledProps {
+  width?: number;
   focused?: boolean;
   states?: "DEFAULT" | "DISABLED" | "ERROR";
 }
 
 function Select({
+  width,
   states,
   label,
   placeholder,
@@ -39,23 +42,28 @@ function Select({
   );
 
   // Show & Hide Option
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
-    if (states === "ERROR" || states === "DISABLED") return;
-    setIsClick(!isClick);
-  };
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      e.stopPropagation();
+      if (states === "ERROR" || states === "DISABLED") return;
+      setIsClick(!isClick);
+    },
+    [isClick, states]
+  );
 
   // Select Option
-  const handleOption = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    value: string | number
-  ) => {
-    e.stopPropagation();
-    // if (!selectValue) return;
-    console.log(`Select Option: ${value}`);
-    setIsClick(false);
-    setSelectValue(value);
-  };
+  const handleOption = useCallback(
+    (
+      e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+      value: string | number
+    ) => {
+      e.stopPropagation();
+      console.log(`Select Option: ${value}`);
+      setIsClick(false);
+      setSelectValue(value);
+    },
+    []
+  );
 
   // Callback
   useEffect(() => {
@@ -81,13 +89,12 @@ function Select({
   }, [isClick]);
 
   return (
-    <Container>
+    <Container width={width}>
       {label && <Label onClick={handleClick}>{label}</Label>}
       <InputWrapper>
         <InputOuter onClick={handleClick} focused={isClick} states={states}>
           <InputElement
             placeholder={placeholder}
-            // size={placeholder?.length}
             value={
               selectValue === undefined || selectValue === null
                 ? ""
@@ -126,6 +133,7 @@ function Select({
 export default Select;
 
 Select.defaultProps = {
+  width: 264,
   states: "DEFAULT",
   label: undefined,
   placeholder: undefined,
@@ -133,11 +141,9 @@ Select.defaultProps = {
   errorText: undefined,
 };
 
-const Container = styled.div`
+const Container = styled.div<StyledProps>`
   position: relative;
-  /* Fixed Width 처리 필요 */
-  /* width: fit-content; */
-  width: 264px;
+  width: ${(props) => `${props.width}px`};
   display: flex;
   flex-direction: column;
   gap: 4px;
