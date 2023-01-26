@@ -56,7 +56,6 @@ function Select({
   // Select Option
   const handleOption = useCallback((e: EventType, value: ValueType) => {
     e.stopPropagation();
-    console.log(`Select Option: ${value}`);
     setIsClick(false);
     setSelectValue(value);
   }, []);
