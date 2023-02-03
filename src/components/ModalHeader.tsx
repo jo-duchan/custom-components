@@ -1,23 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-function ModalHeader() {
-  return (
-    <Container>
-      <Content> </Content>
-      <Overlay />
-    </Container>
-  );
+// Type
+interface Props {
+  modal: boolean;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ModalHeader({ modal, setModal }: Props) {
+  useEffect(() => {
+    const Root = document.body;
+    Root.style.overflow = "hidden";
+
+    return () => {
+      console.log("Unmount");
+      Root.style.overflow = "auto";
+    };
+  }, []);
+
+  if (modal) {
+    return (
+      <Container onClick={() => setModal(false)}>
+        <Content> </Content>
+        <Overlay />
+      </Container>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 export default ModalHeader;
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  overflow: hidden;
 `;
 
 const Content = styled.div`

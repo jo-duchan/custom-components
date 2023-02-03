@@ -17,6 +17,7 @@ import Slider from "components/Slider";
 import Chip from "components/Chip";
 import PillTab from "components/PillTab";
 import Select from "components/Select";
+import ModalHeader from "components/ModalHeader";
 
 // Type
 import { States } from "type/button-type";
@@ -34,6 +35,7 @@ function Test() {
     { label: "Label03", value: false },
     { label: "Label04", value: false },
   ]);
+  const [modal, setModal] = useState<boolean>(false);
 
   useEffect(() => {
     console.log(`퍼센트는 : ${slideValue} %`);
@@ -122,6 +124,16 @@ function Test() {
           // states="DISABLED"
           option={[0, 1, 2, 3]}
           onChange={handleSelect}
+        />
+      </Section>
+      <Section>
+        <ModalHeader modal={modal} setModal={setModal} />
+        <Button
+          btnType="PRIMARY"
+          states={btnStates}
+          size="MEDIUM"
+          onClick={() => setModal(true)}
+          fixedWidth={fixedWidth}
         />
       </Section>
     </Container>
