@@ -27,9 +27,13 @@ function ModalHeader({ modal, setModal }: Props) {
   if (modal) {
     return (
       <Container>
-        {/* Close, Title, Icon(State, Success, Error, Loading),eyebrow, subtitle, content  */}
         <Content>
           <CloseBtn onClick={() => setModal(false)}> </CloseBtn>
+          <Eyebrow> </Eyebrow>
+          <Icon>{/* Icon(State, Success, Error, Loading, icon) */}</Icon>
+          <Title> </Title>
+          <SubTitle> </SubTitle>
+          <TextContent> </TextContent>
         </Content>
         <Overlay />
       </Container>
@@ -87,3 +91,9 @@ const CloseBtn = styled.div`
   cursor: pointer;
   user-select: none;
 `;
+
+const Eyebrow = styled.div``;
+const Icon = styled.div``;
+const Title = styled.div``;
+const SubTitle = styled.div``;
+const TextContent = styled.div``;
