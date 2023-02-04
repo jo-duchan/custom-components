@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
+// Style
+import ColorSystem from "styles/color-system";
+import { Heading, Text } from "styles/typography";
+
 // Type
 interface Props {
   modal: boolean;
@@ -10,18 +14,23 @@ interface Props {
 function ModalHeader({ modal, setModal }: Props) {
   useEffect(() => {
     const Root = document.body;
-    Root.style.overflow = "hidden";
+    if (modal) {
+      Root.style.overflow = "hidden";
+    }
 
     return () => {
-      console.log("Unmount");
+      // Unmount
       Root.style.overflow = "auto";
     };
-  }, []);
+  }, [modal]);
 
   if (modal) {
     return (
-      <Container onClick={() => setModal(false)}>
-        <Content> </Content>
+      <Container>
+        {/* Close, Title, Icon(State, Success, Error, Loading),eyebrow, subtitle, content  */}
+        <Content>
+          <CloseBtn onClick={() => setModal(false)}> </CloseBtn>
+        </Content>
         <Overlay />
       </Container>
     );
@@ -38,15 +47,24 @@ const Container = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 9999;
+  z-index: 800;
   overflow: hidden;
 `;
 
 const Content = styled.div`
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
-  transform: translate3d(50%, 50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  width: 456px;
+  /* height: auto */
+  height: 196px;
+  border-radius: 16px;
+  padding: 36px;
+  padding-top: 32px;
+  box-sizing: border-box;
+  background: ${ColorSystem.Neutral[0]};
+  z-index: 900;
 `;
 
 const Overlay = styled.div`
@@ -57,4 +75,15 @@ const Overlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
+`;
+
+const CloseBtn = styled.div`
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  background: red;
+  cursor: pointer;
+  user-select: none;
 `;
