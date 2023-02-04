@@ -129,7 +129,8 @@ function Test() {
       <Section>
         <ModalHeader modal={modal} setModal={setModal} />
         <Button
-          btnType="PRIMARY"
+          label="Modal"
+          btnType="SECONDARY"
           states={btnStates}
           size="MEDIUM"
           onClick={() => setModal(true)}
@@ -147,7 +148,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 40px;
   width: 100%;
-  height: 200vh;
+  height: auto;
   padding: 40px;
   box-sizing: border-box;
 

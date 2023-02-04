@@ -253,6 +253,7 @@ const OptionWrapper = styled.div`
   box-sizing: border-box;
   background: ${ColorSystem.Neutral[0]};
   border: 1px solid ${ColorSystem.Neutral[300]};
+  z-index: 400;
 `;
 
 const Option = styled.div`
