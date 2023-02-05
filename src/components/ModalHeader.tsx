@@ -9,6 +9,10 @@ import { Heading, Text } from "styles/typography";
 interface Props {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  eyebrow: string;
+  title: string;
+  subTitle: string;
+  content: string;
 }
 
 function ModalHeader({ modal, setModal }: Props) {
@@ -44,6 +48,11 @@ function ModalHeader({ modal, setModal }: Props) {
 }
 
 export default ModalHeader;
+
+ModalHeader.defaultProps = {
+  eyebrow: undefined,
+  subTitle: undefined,
+};
 
 const Container = styled.div`
   position: fixed;

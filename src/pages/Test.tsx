@@ -127,7 +127,12 @@ function Test() {
         />
       </Section>
       <Section>
-        <ModalHeader modal={modal} setModal={setModal} />
+        <ModalHeader
+          modal={modal}
+          setModal={setModal}
+          title="Title"
+          content="Content"
+        />
         <Button
           label="Modal"
           btnType="SECONDARY"
