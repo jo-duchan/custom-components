@@ -131,7 +131,7 @@ function Test() {
           modal={modal}
           setModal={setModal}
           title="Title"
-          content="Content"
+          content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
         <Button
           label="Modal"

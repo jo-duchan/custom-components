@@ -15,7 +15,7 @@ interface Props {
   content: string;
 }
 
-function ModalHeader({ modal, setModal }: Props) {
+function ModalHeader({ modal, setModal, title, content }: Props) {
   useEffect(() => {
     const Root = document.body;
     if (modal) {
@@ -33,11 +33,14 @@ function ModalHeader({ modal, setModal }: Props) {
       <Container>
         <Content>
           <CloseBtn onClick={() => setModal(false)}> </CloseBtn>
-          <Eyebrow> </Eyebrow>
+
           <Icon>{/* Icon(State, Success, Error, Loading, icon) */}</Icon>
-          <Title> </Title>
-          <SubTitle> </SubTitle>
-          <TextContent> </TextContent>
+          <Header>
+            {/* <Eyebrow> </Eyebrow> */}
+            <Title>{title}</Title>
+            {/* <SubTitle> </SubTitle> */}
+          </Header>
+          <TextContent>{content}</TextContent>
         </Content>
         <Overlay />
       </Container>
@@ -70,8 +73,7 @@ const Content = styled.div`
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   width: 456px;
-  /* height: auto */
-  height: 196px;
+  height: auto;
   border-radius: 16px;
   padding: 36px;
   padding-top: 32px;
@@ -101,8 +103,25 @@ const CloseBtn = styled.div`
   user-select: none;
 `;
 
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Title only(eyebrow, subtitle 포함) */
+  margin-bottom: 24px;
+`;
+
 const Eyebrow = styled.div``;
+
+const Title = styled.div`
+  ${Heading.DefaultH2}
+  color: ${ColorSystem.Neutral[900]};
+`;
+
 const Icon = styled.div``;
-const Title = styled.div``;
 const SubTitle = styled.div``;
-const TextContent = styled.div``;
+
+const TextContent = styled.div`
+  ${Text.Body400};
+  color: ${ColorSystem.Neutral[900]};
+`;

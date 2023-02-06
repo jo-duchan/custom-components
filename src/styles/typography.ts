@@ -42,37 +42,37 @@ const FontSize = {
 const Heading = {
   DefaultH1: css`
     font-family: "Rubik";
-    font-style: italic;
+    font-style: normal;
     font-weight: 700;
     ${FontSize[900]};
   `,
   DefaultH2: css`
     font-family: "Rubik";
-    font-style: italic;
+    font-style: normal;
     font-weight: 700;
     ${FontSize[700]};
   `,
   DefaultH3: css`
     font-family: "Rubik";
-    font-style: italic;
+    font-style: normal;
     font-weight: 700;
     ${FontSize[500]};
   `,
   ThinH1: css`
     font-family: "Rubik";
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
     ${FontSize[900]};
   `,
   ThinH2: css`
     font-family: "Rubik";
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
     ${FontSize[700]};
   `,
   ThinH3: css`
     font-family: "Rubik";
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
     ${FontSize[500]};
   `,
