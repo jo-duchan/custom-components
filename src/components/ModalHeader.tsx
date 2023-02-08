@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+// Components
+import IconSet from "components/IconSet";
 
 // Style
 import ColorSystem from "styles/color-system";
 import { Heading, Text } from "styles/typography";
+import { LayoutCenter } from "styles/common";
 
 // Type
 interface Props {
@@ -15,7 +19,18 @@ interface Props {
   content: string;
 }
 
-function ModalHeader({ modal, setModal, title, content }: Props) {
+interface StyledProps {
+  align?: "START" | "CENTER" | "END";
+}
+
+function ModalHeader({
+  modal,
+  setModal,
+  title,
+  eyebrow,
+  subTitle,
+  content,
+}: Props) {
   useEffect(() => {
     const Root = document.body;
     if (modal) {
@@ -30,15 +45,17 @@ function ModalHeader({ modal, setModal, title, content }: Props) {
 
   if (modal) {
     return (
-      <Container>
+      <Container align="START">
         <Content>
-          <CloseBtn onClick={() => setModal(false)}> </CloseBtn>
+          <CloseBtn onClick={() => setModal(false)}>
+            <IconSet type="CLOSE" />
+          </CloseBtn>
 
           <Icon>{/* Icon(State, Success, Error, Loading, icon) */}</Icon>
           <Header>
-            {/* <Eyebrow> </Eyebrow> */}
+            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
             <Title>{title}</Title>
-            {/* <SubTitle> </SubTitle> */}
+            {subTitle && <SubTitle>{subTitle}</SubTitle>}
           </Header>
           <TextContent>{content}</TextContent>
         </Content>
@@ -57,7 +74,7 @@ ModalHeader.defaultProps = {
   subTitle: undefined,
 };
 
-const Container = styled.div`
+const Container = styled.div<StyledProps>`
   position: fixed;
   top: 0;
   left: 0;
@@ -65,6 +82,23 @@ const Container = styled.div`
   height: 100vh;
   z-index: 800;
   overflow: hidden;
+
+  ${(props) => {
+    switch (props.align) {
+      case "START":
+        return css`
+          text-align: start;
+        `;
+      case "CENTER":
+        return css`
+          text-align: center;
+        `;
+      case "END":
+        return css`
+          text-align: end;
+        `;
+    }
+  }}
 `;
 
 const Content = styled.div`
@@ -93,33 +127,45 @@ const Overlay = styled.div`
 `;
 
 const CloseBtn = styled.div`
+  ${LayoutCenter};
   position: absolute;
   top: 24px;
   right: 24px;
   width: 48px;
   height: 48px;
-  background: red;
   cursor: pointer;
   user-select: none;
+
+  & svg {
+    width: 15px;
+    height: 15px;
+  }
 `;
 
 const Header = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  /* Title only(eyebrow, subtitle 포함) */
   margin-bottom: 24px;
 `;
 
-const Eyebrow = styled.div``;
+const Eyebrow = styled.div`
+  text-transform: uppercase;
+  color: ${ColorSystem.Neutral[600]};
+  ${Text.Body300};
+`;
 
 const Title = styled.div`
   ${Heading.DefaultH2}
   color: ${ColorSystem.Neutral[900]};
 `;
 
+const SubTitle = styled.div`
+  ${Text.Body400};
+  color: ${ColorSystem.Neutral[600]};
+`;
+
 const Icon = styled.div``;
-const SubTitle = styled.div``;
 
 const TextContent = styled.div`
   ${Text.Body400};
