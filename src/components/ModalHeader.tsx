@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import styled, { css } from "styled-components";
 
 // Components
@@ -8,11 +8,13 @@ import IconSet from "components/IconSet";
 import ColorSystem from "styles/color-system";
 import { Heading, Text } from "styles/typography";
 import { LayoutCenter } from "styles/common";
+import { DropDownShadow } from "styles/shadow";
 
 // Type
 interface Props {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  status: "DEFAULT" | "ICON" | "SUCCESS" | "ERROR" | "LOADING";
   eyebrow: string;
   title: string;
   subTitle: string;
@@ -26,6 +28,7 @@ interface StyledProps {
 function ModalHeader({
   modal,
   setModal,
+  status,
   title,
   eyebrow,
   subTitle,
@@ -43,33 +46,51 @@ function ModalHeader({
     };
   }, [modal]);
 
-  if (modal) {
-    return (
-      <Container align="START">
-        <Content>
-          <CloseBtn onClick={() => setModal(false)}>
-            <IconSet type="CLOSE" />
-          </CloseBtn>
+  const drawStatus = useCallback(() => {
+    switch (status) {
+      case "ICON": {
+        return <IconWrapper>icon</IconWrapper>;
+      }
+      case "SUCCESS": {
+        return <IconWrapper>success</IconWrapper>;
+      }
+      case "ERROR": {
+        return <IconWrapper>error</IconWrapper>;
+      }
+      case "LOADING": {
+        return <IconWrapper>loading</IconWrapper>;
+      }
+      default: {
+        return <></>;
+      }
+    }
+  }, [status]);
 
-          <Icon>{/* Icon(State, Success, Error, Loading, icon) */}</Icon>
-          <Header>
-            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-            <Title>{title}</Title>
-            {subTitle && <SubTitle>{subTitle}</SubTitle>}
-          </Header>
-          <TextContent>{content}</TextContent>
-        </Content>
-        <Overlay />
-      </Container>
-    );
-  } else {
-    return <></>;
-  }
+  if (!modal) return <></>;
+
+  return (
+    <Container align={status === "DEFAULT" ? "START" : "CENTER"}>
+      <Content>
+        <CloseBtn onClick={() => setModal(false)}>
+          <IconSet type="CLOSE" />
+        </CloseBtn>
+        {drawStatus()}
+        <Header>
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          <Title>{title}</Title>
+          {subTitle && <SubTitle>{subTitle}</SubTitle>}
+        </Header>
+        <TextContent>{content}</TextContent>
+      </Content>
+      <Overlay />
+    </Container>
+  );
 }
 
 export default ModalHeader;
 
 ModalHeader.defaultProps = {
+  status: "DEFAULT",
   eyebrow: undefined,
   subTitle: undefined,
 };
@@ -113,6 +134,7 @@ const Content = styled.div`
   padding-top: 32px;
   box-sizing: border-box;
   background: ${ColorSystem.Neutral[0]};
+  ${DropDownShadow.Dropdown};
   z-index: 900;
 `;
 
@@ -165,7 +187,7 @@ const SubTitle = styled.div`
   color: ${ColorSystem.Neutral[600]};
 `;
 
-const Icon = styled.div``;
+const IconWrapper = styled.div``;
 
 const TextContent = styled.div`
   ${Text.Body400};

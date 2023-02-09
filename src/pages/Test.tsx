@@ -130,6 +130,7 @@ function Test() {
         <ModalHeader
           modal={modal}
           setModal={setModal}
+          // status="ERROR"
           eyebrow="eyebrow"
           title="Title"
           subTitle="Lorem ipsum dolor sit amet conse"
