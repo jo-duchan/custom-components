@@ -23,6 +23,7 @@ interface Props {
 
 interface StyledProps {
   align?: "START" | "CENTER" | "END";
+  bgType?: "ICON" | "SUCCESS" | "ERROR" | "LOADING";
 }
 
 function ModalHeader({
@@ -46,26 +47,6 @@ function ModalHeader({
     };
   }, [modal]);
 
-  const drawStatus = useCallback(() => {
-    switch (status) {
-      case "ICON": {
-        return <IconWrapper>icon</IconWrapper>;
-      }
-      case "SUCCESS": {
-        return <IconWrapper>success</IconWrapper>;
-      }
-      case "ERROR": {
-        return <IconWrapper>error</IconWrapper>;
-      }
-      case "LOADING": {
-        return <IconWrapper>loading</IconWrapper>;
-      }
-      default: {
-        return <></>;
-      }
-    }
-  }, [status]);
-
   if (!modal) return <></>;
 
   return (
@@ -74,7 +55,9 @@ function ModalHeader({
         <CloseBtn onClick={() => setModal(false)}>
           <IconSet type="CLOSE" />
         </CloseBtn>
-        {drawStatus()}
+        {status !== "DEFAULT" && (
+          <IconWrapper bgType={status}>{status}</IconWrapper>
+        )}
         <Header>
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
           <Title>{title}</Title>
@@ -187,7 +170,34 @@ const SubTitle = styled.div`
   color: ${ColorSystem.Neutral[600]};
 `;
 
-const IconWrapper = styled.div``;
+const IconWrapper = styled.div<StyledProps>`
+  ${LayoutCenter};
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  margin: 0 auto 20px auto;
+
+  ${(props) => {
+    switch (props.bgType) {
+      case "ICON":
+        return css`
+          background: ${ColorSystem.Neutral[100]};
+        `;
+      case "SUCCESS":
+        return css`
+          background: ${ColorSystem.Success[200]};
+        `;
+      case "ERROR":
+        return css`
+          background: ${ColorSystem.Error[200]};
+        `;
+      case "LOADING":
+        return css`
+          background: ${ColorSystem.Secondary[200]};
+        `;
+    }
+  }}
+`;
 
 const TextContent = styled.div`
   ${Text.Body400};
