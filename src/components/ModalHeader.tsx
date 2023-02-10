@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 
 // Components
@@ -11,19 +11,22 @@ import { LayoutCenter } from "styles/common";
 import { DropDownShadow } from "styles/shadow";
 
 // Type
+import { IconType } from "type/icon-type";
+
 interface Props {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  status: "DEFAULT" | "ICON" | "SUCCESS" | "ERROR" | "LOADING";
+  status: "DEFAULT" | "ICON" | "SUCCESS" | "ERROR" | "PROGRESS";
   eyebrow: string;
   title: string;
   subTitle: string;
   content: string;
+  iconType: IconType;
 }
 
 interface StyledProps {
   align?: "START" | "CENTER" | "END";
-  bgType?: "ICON" | "SUCCESS" | "ERROR" | "LOADING";
+  bgType?: "ICON" | "SUCCESS" | "ERROR" | "PROGRESS";
 }
 
 function ModalHeader({
@@ -34,6 +37,7 @@ function ModalHeader({
   eyebrow,
   subTitle,
   content,
+  iconType,
 }: Props) {
   useEffect(() => {
     const Root = document.body;
@@ -56,7 +60,9 @@ function ModalHeader({
           <IconSet type="CLOSE" />
         </CloseBtn>
         {status !== "DEFAULT" && (
-          <IconWrapper bgType={status}>{status}</IconWrapper>
+          <IconWrapper bgType={status}>
+            <IconSet type={status !== "ICON" ? status : iconType} />
+          </IconWrapper>
         )}
         <Header>
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
@@ -76,6 +82,7 @@ ModalHeader.defaultProps = {
   status: "DEFAULT",
   eyebrow: undefined,
   subTitle: undefined,
+  iconType: undefined,
 };
 
 const Container = styled.div<StyledProps>`
@@ -176,6 +183,10 @@ const IconWrapper = styled.div<StyledProps>`
   height: 64px;
   border-radius: 16px;
   margin: 0 auto 20px auto;
+  & svg {
+    width: 25px;
+    height: 25px;
+  }
 
   ${(props) => {
     switch (props.bgType) {
@@ -191,9 +202,12 @@ const IconWrapper = styled.div<StyledProps>`
         return css`
           background: ${ColorSystem.Error[200]};
         `;
-      case "LOADING":
+      case "PROGRESS":
         return css`
           background: ${ColorSystem.Secondary[200]};
+          & svg path {
+            fill: ${ColorSystem.Secondary[600]};
+          }
         `;
     }
   }}

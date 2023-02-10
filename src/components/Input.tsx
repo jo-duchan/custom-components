@@ -17,7 +17,6 @@ interface StyledProps {
 }
 
 function Input({ states, width, label, placeholder, errorText }: InputProps) {
-
   const InputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -43,7 +42,7 @@ function Input({ states, width, label, placeholder, errorText }: InputProps) {
       />
       {(states === "ERROR" || states === "ERROR_FOCUSED") && (
         <ErrorElement>
-          <IconSet type="ERROR" />
+          <IconSet type="ERROR_2" />
           {errorText}
         </ErrorElement>
       )}

@@ -117,7 +117,7 @@ function Select({
       {helpText && !isClick && <HelpText>{helpText}</HelpText>}
       {states === "ERROR" && !isClick && (
         <ErrorText>
-          <IconSet type="ERROR" />
+          <IconSet type="ERROR_2" />
           {errorText}
         </ErrorText>
       )}

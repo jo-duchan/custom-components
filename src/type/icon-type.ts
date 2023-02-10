@@ -1,6 +1,9 @@
 export type IconType =
   | "PROGRESS"
-  | "ERROR"
+  | "ERROR_2"
   | "SEARCH"
   | "CLOSE"
-  | "CHEVRON-DOWN";
+  | "CHEVRON-DOWN"
+  | "ERROR"
+  | "SUCCESS"
+  | undefined;

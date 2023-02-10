@@ -36,7 +36,7 @@ function Textarea({
       />
       {states === "ERROR" && (
         <ErrorElement>
-          <IconSet type="ERROR" />
+          <IconSet type="ERROR_2" />
           {errorText}
         </ErrorElement>
       )}
