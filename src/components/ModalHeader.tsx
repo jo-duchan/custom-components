@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 // Components
 import IconSet from "components/IconSet";
@@ -177,6 +177,15 @@ const SubTitle = styled.div`
   color: ${ColorSystem.Neutral[600]};
 `;
 
+const AniMation = keyframes`
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+`;
+
 const IconWrapper = styled.div<StyledProps>`
   ${LayoutCenter};
   width: 64px;
@@ -204,6 +213,9 @@ const IconWrapper = styled.div<StyledProps>`
         `;
       case "PROGRESS":
         return css`
+          & svg {
+            animation: ${AniMation} 1000ms ease-in-out infinite;
+          }
           background: ${ColorSystem.Secondary[200]};
           & svg path {
             fill: ${ColorSystem.Secondary[600]};

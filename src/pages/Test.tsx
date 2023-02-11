@@ -130,7 +130,9 @@ function Test() {
         <ModalHeader
           modal={modal}
           setModal={setModal}
-          status="SUCCESS"
+          // status="SUCCESS"
+          // status="ERROR"
+          status="PROGRESS"
           // eyebrow="eyebrow"
           title="Title"
           // subTitle="Lorem ipsum dolor sit amet conse"
