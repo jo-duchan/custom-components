@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 
 // Style
@@ -22,13 +22,34 @@ interface StyledProps {
 
 function Chip({ emoji, icon, text, size }: Props) {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [isClick, setIsClick] = useState<boolean>(false);
+
+  useEffect(() => {
+    function handleOuter() {
+      setIsClick(false);
+      setIsActive(false);
+      window.removeEventListener("click", handleOuter);
+    }
+
+    if (isClick) {
+      window.addEventListener("click", handleOuter);
+    }
+
+    return () => {
+      window.removeEventListener("click", handleOuter);
+    };
+  }, [isClick]);
 
   return (
     <Container
       size={size}
       active={isActive}
       paddingLeft={!emoji || !icon}
-      onClick={() => setIsActive(!isActive)}
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsActive(!isActive);
+        setIsClick(true);
+      }}
     >
       {emoji && <TextWrapper>{emoji}</TextWrapper>}
       <TextWrapper>{text}</TextWrapper>
