@@ -6,4 +6,5 @@ export type IconType =
   | "CHEVRON-DOWN"
   | "ERROR"
   | "SUCCESS"
+  | "SUCCESS_2"
   | undefined;
