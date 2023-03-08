@@ -149,7 +149,7 @@ function Test() {
         />
       </Section>
       <Section>
-        <CopyText />
+        <CopyText label="Label" helpText="Help text" />
       </Section>
     </Container>
   );
