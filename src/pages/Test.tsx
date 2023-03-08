@@ -18,6 +18,7 @@ import Chip from "components/Chip";
 import PillTab from "components/PillTab";
 import Select from "components/Select";
 import ModalHeader from "components/ModalHeader";
+import CopyText from "components/CopyText";
 
 // Type
 import { States } from "type/button-type";
@@ -146,6 +147,9 @@ function Test() {
           onClick={() => setModal(true)}
           fixedWidth={fixedWidth}
         />
+      </Section>
+      <Section>
+        <CopyText />
       </Section>
     </Container>
   );
