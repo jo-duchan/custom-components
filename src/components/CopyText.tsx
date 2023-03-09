@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 
 // Style
@@ -10,23 +10,25 @@ import IconSet from "components/IconSet";
 
 // Type
 interface Props {
+  width: string;
   label: string;
   helpText: string;
 }
 
 interface StyledProps {
-  isCopied: boolean;
+  width?: string;
+  isCopied?: boolean;
 }
 
-function CopyText({ label, helpText }: Props) {
+function CopyText({ width, label, helpText }: Props) {
   const [copyValue, setCopyValue] = useState<string>("");
   const [copied, setCopied] = useState<boolean>(false);
 
-  const onClickHandler = () => {
+  useEffect(() => {
     if (!copyValue) {
       setCopied(false);
     }
-  };
+  }, [copyValue]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCopyValue(e.target.value);
@@ -47,9 +49,9 @@ function CopyText({ label, helpText }: Props) {
 
   return (
     <Container>
-      <Label onClick={onClickHandler}>
+      <Label>
         {label}
-        <InputWrapper>
+        <InputWrapper width={width}>
           <InputInner
             onChange={onChangeHandler}
             value={copyValue}
@@ -69,6 +71,7 @@ function CopyText({ label, helpText }: Props) {
 export default CopyText;
 
 CopyText.defaultProps = {
+  width: undefined,
   label: undefined,
   helpText: undefined,
 };
@@ -89,11 +92,11 @@ const Label = styled.label`
   ${Text.Medium400};
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<StyledProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 264px;
+  width: ${(props) => (props.width ? `${props.width}px` : "264px")};
   height: 48px;
   background: ${ColorSystem.Neutral[0]};
   border: 1px solid;
